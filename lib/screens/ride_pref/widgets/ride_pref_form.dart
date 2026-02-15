@@ -1,6 +1,7 @@
 import 'package:blabla/utils/date_time_util.dart';
 import 'package:flutter/material.dart';
  
+import '../../../utils/animations_util.dart';
 import '../../../model/ride/locations.dart';
 import '../../../model/ride_pref/ride_pref.dart';
 
@@ -60,8 +61,8 @@ class _RidePrefFormState extends State<RidePrefForm> {
     void _onDeparturePressed() async {
       final LocationPickerResult? result = await Navigator.push(
         context,
-        MaterialPageRoute(
-          builder: (context) => LocationPicker(
+        AnimationUtils.createBottomToTopRoute(
+          LocationPicker(
             locations: LocationsService.availableLocations,
             selected: departure,
             label: "Departure",
@@ -90,8 +91,8 @@ class _RidePrefFormState extends State<RidePrefForm> {
     void _onArrivalPressed() async {
       final LocationPickerResult? result = await Navigator.push(
         context,
-        MaterialPageRoute(
-          builder: (context) => LocationPicker(
+        AnimationUtils.createBottomToTopRoute(
+          LocationPicker(
             locations: LocationsService.availableLocations,
             selected: arrival,
             label: "Arrival",
