@@ -37,7 +37,7 @@ class _RidePrefScreenState extends State<RidePrefScreen> {
       height: 340,
       child: Image.asset(
         blablaHomeImagePath,
-        fit: BoxFit.cover, // Adjust image fit to cover the container
+        fit: BoxFit.cover, 
       ),
     );
   }
@@ -54,8 +54,8 @@ class _RidePrefScreenState extends State<RidePrefScreen> {
         Container(
           margin: EdgeInsets.symmetric(horizontal: BlaSpacings.xxl),
           decoration: BoxDecoration(
-            color: Colors.white, // White background
-            borderRadius: BorderRadius.circular(16), // Rounded corners
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -67,9 +67,9 @@ class _RidePrefScreenState extends State<RidePrefScreen> {
 
               // 2.2 Optionally display the history of past preferences
               SizedBox(
-                height: 200, // Set a fixed height
+                height: 200, 
                 child: ListView.builder(
-                  shrinkWrap: true, // Fix ListView height issue
+                  shrinkWrap: true, 
                   physics: AlwaysScrollableScrollPhysics(),
                   itemCount: RidePrefService.ridePrefsHistory.length,
                   itemBuilder: (ctx, index) => RidePrefHistoryTile(
