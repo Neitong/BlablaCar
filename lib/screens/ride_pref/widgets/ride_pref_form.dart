@@ -120,6 +120,10 @@ class _RidePrefFormState extends State<RidePrefForm> {
 
 
 
+  // Bonus: BLA-008 - Implement the Date picker
+  //=============================================================
+  // Be able to select current date, but not past dates. 
+  //The date should be ranged between current date and the next year.
   void _onDatePressed() async {
     final DateTime now = DateTime.now();
     final DateTime today = DateTime(now.year, now.month, now.day);
@@ -139,6 +143,11 @@ class _RidePrefFormState extends State<RidePrefForm> {
     }
   }
 
+  // Bonus: BLA-007 - Implement the Seat number spinner
+  //=============================================================
+  // The user should be able to select the number of seats they wants.
+  // [at least 1, no upper limit]. 
+  //=============================================================
   void _onSeatsPressed() {
     showDialog(
       context: context,
