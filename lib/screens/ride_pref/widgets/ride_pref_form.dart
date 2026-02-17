@@ -11,6 +11,7 @@ import '../../../widgets/bla_button.dart';
 import '../../../theme/theme.dart';
 import './location_picker.dart';
 import '../../../services/locations_service.dart';
+import '../../booking_seat_screen.dart';
 
 
  
@@ -148,56 +149,21 @@ class _RidePrefFormState extends State<RidePrefForm> {
   // The user should be able to select the number of seats they wants.
   // [at least 1, no upper limit]. 
   //=============================================================
-  void _onSeatsPressed() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Number of passengers', style: BlaTextStyles.heading),
-        content: StatefulBuilder(
-          builder: (context, setDialogState) => Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                icon: Icon(Icons.remove_circle_outline, size: 32),
-                onPressed: requestedSeats > 1
-                    ? () {
-                        setDialogState(() {
-                          setState(() {
-                            requestedSeats--;
-                          });
-                        });
-                      }
-                    : null,
-                color: BlaColors.primary,
-              ),
-              SizedBox(width: BlaSpacings.l),
-              Text(
-                '$requestedSeats',
-                style: BlaTextStyles.heading,
-              ),
-              SizedBox(width: BlaSpacings.l),
-              IconButton(
-                icon: Icon(Icons.add_circle_outline, size: 32),
-                onPressed: () {
-                  setDialogState(() {
-                    setState(() {
-                      requestedSeats++;
-                    });
-                  });
-                },
-                color: BlaColors.primary,
-              ),
-            ],
-          ),
+  void _onSeatsPressed() async {
+    final int? result = await Navigator.push(
+      context,
+      AnimationUtils.createBottomToTopRoute(
+        BookingSeatScreen(
+          initialSeats: requestedSeats,
         ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text('Done', style: TextStyle(color: BlaColors.primary)),
-          ),
-        ],
       ),
     );
+
+    if (result != null && result != requestedSeats) {
+      setState(() {
+        requestedSeats = result;
+      });
+    }
   }
 
   void _onSwapLocation() {
@@ -262,7 +228,7 @@ void _onSearchPressed() {
         mainAxisSize: MainAxisSize.min,
         children: [
           // Departure Location Picker
-          formPicker(
+          FormPicker(
             icon: Icons.circle_outlined,
             label: 'Leaving from',
             value: departure?.name,
@@ -273,7 +239,7 @@ void _onSearchPressed() {
           BlaDivider(),
 
           // Arrival Location Picker
-          formPicker(
+          FormPicker(
             icon: Icons.circle_outlined,
             label: 'Going to',
             value: arrival?.name,
@@ -284,7 +250,7 @@ void _onSearchPressed() {
           BlaDivider(),
 
           // Date Picker
-          formPicker(
+          FormPicker(
             icon: Icons.calendar_month,
             label: date,
             value: null,
@@ -293,7 +259,7 @@ void _onSearchPressed() {
           BlaDivider(),
 
             // Seats Picker
-          formPicker(
+          FormPicker(
             icon: Icons.person_outline,
             label: requestedSeats.toString(),
             value: null,
